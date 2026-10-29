@@ -117,7 +117,7 @@ export const history = docListPage({
     { label: t('Date'), render: (d) => fmtDate(d.date), cls: 'nowrap' },
     { label: t('No.'), render: (d) => html`<a href="#/doc/${d.id}">${d.doc_no}</a> ${statusCell(d)}`, cls: 'nowrap' },
     { label: t('Type'), render: (d) => docType(d.type) },
-    { label: t('Customer / supplier / reason'), render: (d) => d.customer_name || d.partner || d.reason },
+    { label: t('Customer / supplier / reason'), render: (d) => d.customer_name || d.partner || t(d.reason || '') },
     { label: t('Delivered to / reference'), render: (d) => d.deliver_to || d.reference },
     { label: t('Slabs'), num: true, render: (d) => n(d.slab_pcs) },
     { label: 'm²', num: true, render: (d) => n(d.sqm, 2) },

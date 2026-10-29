@@ -66,7 +66,7 @@ export const dashboard = {
         <section class="card">
           <h2>${t('Needs attention')} <span class="count">${d.alerts.length}</span></h2>
           ${d.alerts.length ? html`<ul class="alerts">${d.alerts.slice(0, 14).map((a) => html`
-            <li class="alert-${a.level}"><span class="alert-icon" aria-hidden="true">${alertIcon[a.level]}</span><a href="#${a.link}">${t(a.text, a.params)}</a></li>`)}</ul>
+            <li class="alert-${a.level}"><span class="alert-icon" aria-hidden="true">${alertIcon[a.level]}</span><a href="#${a.link}">${t(a.text, a.params.date ? { ...a.params, date: fmtDate(a.params.date) } : a.params)}</a></li>`)}</ul>
             ${d.alerts.length > 14 ? html`<p class="muted small">${t('+ {n} more', { n: d.alerts.length - 14 })}</p>` : ''}`
             : emptyState(t('All good — nothing needs attention.'))}
         </section>

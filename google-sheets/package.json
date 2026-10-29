@@ -1,0 +1,12 @@
+{
+  "name": "slab-stock-google-sheets",
+  "private": true,
+  "description": "Google Sheets edition of the slab / offcut / glue stock manager",
+  "scripts": {
+    "build": "node build.js",
+    "test": "node --test test/*.test.js"
+  },
+  "devDependencies": {
+    "esbuild": "0.24.0"
+  }
+}

@@ -15,17 +15,22 @@ document.documentElement.lang = lang;
 
 const fill = (s, p) => String(s).replace(/\{(\w+)\}/g, (_, k) => (p && p[k] !== undefined && p[k] !== null ? p[k] : ''));
 
-/** Translate an English text (with optional {params}). */
+const TRANSLATED_PARAMS = ['field', 'unit', 'status'];
+
+/** Translate an English text (with optional {params}). Field names, units and statuses inside params are translated too. */
 export function t(text, params) {
   const s = lang === 'th' && TH[text] ? TH[text] : text;
-  return params ? fill(s, params) : s;
+  if (!params) return s;
+  if (lang === 'th') {
+    params = { ...params };
+    for (const k of TRANSLATED_PARAMS) if (typeof params[k] === 'string' && TH[params[k]]) params[k] = TH[params[k]];
+  }
+  return fill(s, params);
 }
 
 /** Translate an error coming from the server: { error, params, line }. Field names are translated too. */
 export function tError(body) {
   if (!body || !body.error) return t('Something went wrong. Please try again.');
-  const params = { ...(body.params || {}) };
-  if (params.field) params.field = t(params.field);
-  const msg = t(body.error, params);
+  const msg = t(body.error, body.params || {});
   return body.line ? `${t('Line {n}', { n: body.line })}: ${msg}` : msg;
 }
