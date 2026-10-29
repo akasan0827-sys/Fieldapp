@@ -1,0 +1,16 @@
+{
+  "name": "slab-stock-manager",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Web app to manage solid surface slabs (full slabs + offcuts in m²), colour-matched glue with expiry, customer locks, deliveries, receiving and monthly closing.",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "start": "node server/index.js",
+    "demo": "node server/index.js --demo",
+    "seed:colors": "node server/seed.js colors",
+    "test": "node --test"
+  }
+}

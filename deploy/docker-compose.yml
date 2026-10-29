@@ -1,0 +1,26 @@
+# Runs the app behind Caddy, which gets a free HTTPS certificate automatically.
+# 1. Point your domain (e.g. stock.yourcompany.com) to this server's IP.
+# 2. Put the domain in deploy/Caddyfile.
+# 3. docker compose -f deploy/docker-compose.yml up -d --build
+services:
+  app:
+    build: ..
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Seoul
+    volumes:
+      - stock-data:/data
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+    depends_on:
+      - app
+volumes:
+  stock-data:
+  caddy-data:

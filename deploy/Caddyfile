@@ -1,0 +1,5 @@
+# Replace with your own domain name
+stock.example.com {
+	encode gzip
+	reverse_proxy app:3000
+}
